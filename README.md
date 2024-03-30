@@ -98,11 +98,11 @@ where:
 
     a. Launch the Carla ROS bridge ego vehicle visualization:
     ```bash
-    ros2 launch carla_shenlan_bridge_ego_vis carla_bridge_ego_vehicle.launch.py
+    ros2 launch carla_bridge_ego_vis carla_bridge_ego_vehicle.launch.py
     ```
 
     b. Run the Carla PID controller node:
 
     ```bash
-    ros2 run carla_shenlan_pid_controller carla_shenlan_pid_controller_node
+    ros2 run carla_pid_controller carla_shenlan_pid_controller_node
     ```
