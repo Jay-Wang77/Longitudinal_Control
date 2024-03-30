@@ -98,7 +98,7 @@ def generate_launch_description():
         launch.actions.IncludeLaunchDescription(
             launch.launch_description_sources.PythonLaunchDescriptionSource(
                 os.path.join(get_package_share_directory(
-                    'carla_shenlan_bridge_ego_vis'), 'carla_shenlan_vis_ego_vehicle.launch.py')
+                    'carla_bridge_ego_vis'), 'carla_vis_ego_vehicle.launch.py')
             ),
             launch_arguments={
                 'role_name': launch.substitutions.LaunchConfiguration('role_name')
