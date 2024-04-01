@@ -20,20 +20,27 @@ double PIDController::Control(const double error, const double dt) {
     //ensure dt must be positive
     if (dt <= 0){
         return previous_output_;
+    }\
+    if (first_hit_) {
+        first_hit_ = false;
+        proportional_part = error;
+        integral_part += error * dt;
+        derivative_part = 0;
+    } else {
+        proportional_part = error;
+        integral_part += error * dt;
+        derivative_part = (error - previous_error_) / dt;
     }
-    //protection, avoid to oscillation
-    if (std::fabs(integral_) > 5) {
-        PIDController::Reset();
+
+    // protection, avoid to oscillation
+    if (integral_part > 40.0){
+        integral_part = 40.0;
     }
-    double current_output = 0.0;
-    double diff;
-    if (first_hit_){
-        return first_hit_ = false;
-    }else{
-        diff = (error - previous_error_) / dt;
+    if (integral_part < -40.0){
+        integral_part = -40.0;
     }
-    integral_ +=  error * dt;
-    current_output = kp_ * error + kd_ * diff + ki_ * integral_;
+    // std::cout << "integral_part: " << integral_part << std::endl;
+    current_output = kp_ * proportional_part + ki_ * integral_part + kd_ * derivative_part;
 
     previous_error_ = error;
     previous_output_ = current_output;
